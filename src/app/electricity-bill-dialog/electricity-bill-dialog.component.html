@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>{{ data.electricityBill ? 'Edit Electricity Bill' : 'Add Electricity Bill' }}</h2>
+<div mat-dialog-content>
+  <form [formGroup]="electricityBillForm">
+    <mat-form-field>
+      <input matInput placeholder="Month" formControlName="month">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Year" formControlName="year">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Units Used" formControlName="unitsUsed">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Amount" formControlName="amount">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button color="primary" (click)="saveElectricityBill()">Save</button>
+</div>

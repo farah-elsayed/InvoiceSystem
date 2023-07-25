@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Billing App</title>
+    <link rel="stylesheet" href="app.component.css">
+  </head>
+  <body>
+    <nav class="menu">
+      <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="#">Help</a></li>
+      </ul>
+    </nav>
+    
+    <div class="dashboard">
+      <div class="dashboard-header">
+        <h1>Billing App</h1>
+      </div>
+      <div class="dashboard-content">
+        <div class="dashboard-section">
+          <h2>Add Bill</h2>
+          <form [formGroup]="billForm" (ngSubmit)="submitForm()">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" formControlName="name" class="form-control">
+              <div *ngIf="billForm.controls['name'].invalid && (billForm.controls['name'].dirty || billForm.controls['name'].touched)">
+                <div *ngIf="billForm.controls['name'].hasError('required')">Name is required.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Units Used</label>
+              <input type="number" formControlName="unitsUsed" class="form-control">
+              <div *ngIf="billForm.controls['unitsUsed'].invalid && (billForm.controls['unitsUsed'].dirty || billForm.controls['unitsUsed'].touched)">
+                <div *ngIf="billForm.controls['unitsUsed'].hasError('required')">Units Used is required.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Amount</label>
+              <input type="number" formControlName="amount" class="form-control">
+              <div *ngIf="billForm.controls['amount'].invalid && (billForm.controls['amount'].dirty || billForm.controls['amount'].touched)">
+                <div *ngIf="billForm.controls['amount'].hasError('required')">Amount is required.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Last Payment Date</label>
+              <input type="date" formControlName="lastPaymentDate" class="form-control">
+              <div *ngIf="billForm.controls['lastPaymentDate'].invalid && (billForm.controls['lastPaymentDate'].dirty
+             || billForm.controls['lastPaymentDate'].touched)">
+                <div *ngIf="billForm.controls['lastPaymentDate'].hasError('required')">Last Payment Date is required.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Paid</label>
+              <input type="checkbox" formControlName="paid" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">{{ editing ? 'Update' : 'Add' }}</button>
+            <button type="button" class="btn btn-secondary" *ngIf="editing" (click)="cancelEdit()">Cancel</button>
+          </form>
+        </div>
+        <div class="dashboard-section">
+          <h2>Bills</h2>
+          <app-billing-component></app-billing-component>
+
+        </div>
+      </div>
+    </div>
+    <script src="app.component.js"></script>
+  </body>
+</html>

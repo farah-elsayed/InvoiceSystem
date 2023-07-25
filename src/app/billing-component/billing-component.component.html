@@ -1,0 +1,54 @@
+<div class="container">
+  <h2>Billing</h2>
+  <form [formGroup]="billingForm" (ngSubmit)="onSubmit()" class="billing-form">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name" required>
+      <mat-error *ngIf="billingForm.get('name')!.hasError('required') && billingForm.get('name')!.touched">
+        Name is required.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Units Used</mat-label>
+      <input matInput type="number" formControlName="unitsUsed" required>
+      <mat-error *ngIf="billingForm.get('unitsUsed')!.hasError('required') && billingForm.get('unitsUsed')!.touched">
+        Units Used is required.
+      </mat-error>
+      <mat-error *ngIf="billingForm.get('unitsUsed')!.hasError('min') && billingForm.get('unitsUsed')!.touched">
+        Units Used must be greater than or equal to zero.
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="billingForm.invalid">Submit</button>
+  </form>
+  <hr>
+  <button mat-raised-button color="accent" (click)="openBillDialog()">View Bills</button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Units Used</th>
+        <th>Date</th>
+        <th>Paid</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bill of bills$ | async">
+        <td>{{ bill.name }}</td>
+        <td>{{ bill.unitsUsed }}</td>
+        <td>{{ bill.lastPaymentDate }}</td>
+        <td>{{ bill.paid ? 'Yes' : 'No' }}</td>
+        <td>
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="markAsPaid(bill)"
+            [disabled]="bill.paid"
+          >
+            Mark as Paid
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
